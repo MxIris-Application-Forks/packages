@@ -20,7 +20,6 @@
 #import "PKGDistributionProjectSourceListPackageComponentItem.h"
 
 #import "NSOutlineView+Selection.h"
-#import "NSAlert+block.h"
 
 #import "PKGChoiceItemOptionsDependencies+UI.h"
 #import "PKGInstallationHierarchy+UI.h"
@@ -224,7 +223,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
@@ -257,7 +256,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 	
 	[tExportPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		PKGDistributionProjectExporter * tDistributionProjectExporter=[PKGDistributionProjectExporter new];
@@ -426,7 +425,7 @@ NSString * const PKGPackageComponentNameChangeDidRequestNotitication=@"PKGPackag
 		NSTableCellView * tView=[inOutlineView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
 		tView.textField.objectValue=tSourceListItem.label;
-		((NSTextFieldCell *)tView.textField.cell).controlSize=NSMiniControlSize;
+		((NSTextFieldCell *)tView.textField.cell).controlSize=WBControlSizeMini;
 		
 		return tView;
 	}

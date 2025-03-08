@@ -19,7 +19,6 @@
 #import "PKGDistributionRequirementSourceListRequirementItem.h"
 
 #import "NSTableView+Selection.h"
-#import "NSAlert+block.h"
 
 #import "PKGTableGroupRowView.h"
 #import "PKGCheckboxTableCellView.h"
@@ -134,7 +133,7 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	if (tRow==-1)
 		return;
 	
-	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtIndex:tRow] state:(sender.state==NSOnState)];
+	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtIndex:tRow] state:(sender.state==WBControlStateValueOn)];
 }
 
 - (IBAction)addRequirement:(id)sender
@@ -183,7 +182,7 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
@@ -325,7 +324,7 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 	{
 		NSTableCellView * tView=[inTableView makeViewWithIdentifier:@"HeaderCell" owner:self];
 		
-		tView.backgroundStyle=NSBackgroundStyleDark;
+		tView.backgroundStyle=WBBackgroundStyleEmphasized;
 		tView.textField.stringValue=tSourceListItem.label;
 		
 		return tView;
@@ -345,7 +344,7 @@ NSString * const PKGDistributionRequirementsDataDidChangeNotification=@"PKGDistr
 		{
 			PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 			
-			tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? NSOnState : NSOffState;
+			tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 			
 			tCheckBoxView.textField.stringValue=tRequirement.name;
 			tCheckBoxView.textField.delegate=self;

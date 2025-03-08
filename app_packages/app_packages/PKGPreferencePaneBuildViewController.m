@@ -130,7 +130,7 @@
 	
 	_selectedBehaviorType=PKGPreferencesBuildResultBehaviorSuccess;
 	
-	[((NSButton *)[_buildResultBehaviorsTabHeaderView viewWithTag:_selectedBehaviorType]) setState:NSOnState];
+	[((NSButton *)[_buildResultBehaviorsTabHeaderView viewWithTag:_selectedBehaviorType]) setState:WBControlStateValueOn];
 	
 	
 	[_soundNamePopUpButton setMenu:[self soundsMenu]];
@@ -235,7 +235,7 @@
 	
 	//Signing
 	
-	_embedTrustedTimestampCheckBox.state=([PKGApplicationPreferences sharedPreferences].embedTimestampInSignature==YES) ? NSOnState : NSOffState;
+	_embedTrustedTimestampCheckBox.state=([PKGApplicationPreferences sharedPreferences].embedTimestampInSignature==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	// Quick Build
 	
@@ -252,7 +252,7 @@
 		
 	tMenuItem.title=tSigningIdentity;
 	
-	[_quickBuildUseBundleVersionCheckBox setState:([PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild==YES) ? NSOnState : NSOffState];
+	[_quickBuildUseBundleVersionCheckBox setState:([PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild==YES) ? WBControlStateValueOn : WBControlStateValueOff];
 	
 	[self setFailoverFolder:[PKGApplicationPreferences sharedPreferences].failOverFolderForQuickBuild];
 	
@@ -283,7 +283,7 @@
 			}
 		}
 		
-		_sSoundsMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+		_sSoundsMenu=[[NSMenu alloc] initWithTitle:@""];
 		
 		if (tMutableSet.count>0)
 		{
@@ -336,7 +336,7 @@
 		
 		NSMutableSet * tMutableSet=[NSMutableSet setWithArray:tDisplayVoiceNames];
 		
-		_sVoicesMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] initWithTitle:@""];
+		_sVoicesMenu=[[NSMenu alloc] initWithTitle:@""];
 		
 		if (tMutableSet.count>0)
 		{
@@ -442,7 +442,7 @@
 {
 	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
 	
-	tResultBehavior.playSound=([sender state]==NSOnState);
+	tResultBehavior.playSound=([sender state]==WBControlStateValueOn);
 	
 	_soundNamePopUpButton.enabled=tResultBehavior.playSound;
 }
@@ -464,7 +464,7 @@
 {
 	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
 	
-	tResultBehavior.speakAnnouncement=([sender state]==NSOnState);
+	tResultBehavior.speakAnnouncement=([sender state]==WBControlStateValueOn);
 	
 	_announcementVoicePopUpButton.enabled=tResultBehavior.speakAnnouncement;
 }
@@ -484,19 +484,19 @@
 {
 	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
 	
-	tResultBehavior.notifyUsingSystemNotification=([sender state]==NSOnState);
+	tResultBehavior.notifyUsingSystemNotification=([sender state]==WBControlStateValueOn);
 }
 
 - (IBAction)switchBounceIconInDock:(NSButton *)sender
 {
 	PKGApplicationBuildResultBehavior * tResultBehavior=[PKGApplicationPreferences sharedPreferences].buildResultBehaviors[_selectedBehaviorType];
 	
-	tResultBehavior.bounceIconInDock=([sender state]==NSOnState);
+	tResultBehavior.bounceIconInDock=([sender state]==WBControlStateValueOn);
 }
 
 - (IBAction)switchEmbedTrustedTimestamp:(NSButton *)sender
 {
-	[PKGApplicationPreferences sharedPreferences].embedTimestampInSignature=([sender state]==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].embedTimestampInSignature=([sender state]==WBControlStateValueOn);
 }
 
 
@@ -516,7 +516,7 @@
 			
 			if ([tChooseIdentityPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bReturnCode) {
 				
-				if (bReturnCode==NSCancelButton)
+				if (bReturnCode==WBModalResponseCancel)
 				{
 					[_quickBuildSigningCertificatePopUpButton selectItemWithTag:[PKGApplicationPreferences sharedPreferences].quickBuildSigningAction];
 					
@@ -554,7 +554,7 @@
 
 - (IBAction)setQuickBuildUseBundleVersion:(id)sender
 {
-	[PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild=(_quickBuildUseBundleVersionCheckBox.state==NSOnState);
+	[PKGApplicationPreferences sharedPreferences].useBundleVersionForQuickBuild=(_quickBuildUseBundleVersionCheckBox.state==WBControlStateValueOn);
 }
 
 - (IBAction)switchQuickBuildFailoverFolder:(id)sender
@@ -575,7 +575,7 @@
 		
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult==NSFileHandlingPanelOKButton)
+			if (bResult==WBFileHandlingPanelOKButton)
 			{
 				NSString * tPath=tOpenPanel.URL.path;
 				
@@ -608,7 +608,7 @@
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		[PKGApplicationPreferences sharedPreferences].temporaryBuildLocation=tOpenPanel.URL.path;

@@ -49,7 +49,7 @@
 			NSMutableParagraphStyle * tMutableParagraphStyle=[[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 			
 			tMutableParagraphStyle.lineBreakMode=NSLineBreakByTruncatingMiddle;
-			tMutableParagraphStyle.alignment=NSCenterTextAlignment;
+			tMutableParagraphStyle.alignment=WBTextAlignmentCenter;
 			
 			sSelectedAttributesDictionary=@{
 											NSForegroundColorAttributeName : [NSColor alternateSelectedControlTextColor],
@@ -69,7 +69,7 @@
 			NSMutableParagraphStyle * tMutableParagraphStyle=[[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 			
 			tMutableParagraphStyle.lineBreakMode=NSLineBreakByTruncatingMiddle;
-			tMutableParagraphStyle.alignment=NSCenterTextAlignment;
+			tMutableParagraphStyle.alignment=WBTextAlignmentCenter;
 			
 			
 			sUnselectedAttributesDictionary=@{
@@ -103,7 +103,7 @@
 		
 		NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithRoundedRect:tRoundRect xRadius:tRadius yRadius:tRadius];
 		
-		[[NSColor alternateSelectedControlColor] setFill];
+		[NSColor.selectedContentBackgroundColor setFill];
 		
 		[tBezierPath fill];
 	}

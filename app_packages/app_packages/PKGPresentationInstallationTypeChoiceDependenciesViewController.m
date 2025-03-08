@@ -364,11 +364,11 @@
 	
 	NSPopUpButton * tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(0.0,0.0,100.0,17.0) pullsDown:NO];
 	
-	[[tPopupButton cell] setControlSize:NSSmallControlSize];
+	[[tPopupButton cell] setControlSize:WBControlSizeSmall];
 	
-	tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
-	tPopupButton.alignment=NSCenterTextAlignment;
-	tPopupButton.bezelStyle=NSRoundRectBezelStyle;
+	tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
+	tPopupButton.alignment=WBTextAlignmentCenter;
+	tPopupButton.bezelStyle=WBBezelStyleRoundRect;
 	
 	// Available choices
 	
@@ -416,7 +416,7 @@
 
 - (NSMenu *)_enabledAvailableChoicesMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMutableArray * tChoicesList=[self _availableListOfChoicesFromAvailableDependenciesDictionary:_availableEnabledDependenciesDictionary];
 	
@@ -432,7 +432,7 @@
 
 - (NSMenu *)_selectedAvailableChoicesMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMutableArray * tChoicesList=[self _availableListOfChoicesFromAvailableDependenciesDictionary:_availableSelectedDependenciesDictionary];
 	
@@ -448,7 +448,7 @@
 
 - (NSMenu *)_operatorsMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"And",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGLogicOperatorTypeConjunction;
@@ -466,7 +466,7 @@
 
 - (NSMenu *)_comparatorsMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Is",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateOperatorTypeEqualTo;
@@ -484,7 +484,7 @@
 
 - (NSMenu *)_stateObjectsMenu
 {
-	NSMenu * tMenu=[[NSMenu allocWithZone:[NSMenu menuZone]] init];
+	NSMenu * tMenu=[[NSMenu alloc] init];
 	
 	NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedStringFromTable(@"Enabled",@"Presentation",@"") action:nil keyEquivalent:@""];
 	tMenuItem.tag=PKGPredicateReferenceStateEnabled;
@@ -585,10 +585,10 @@
 		
 		PKGChoiceDependencyPopUpButton * tDependencyPopupButton=[[PKGChoiceDependencyPopUpButton alloc] initWithFrame:NSMakeRect(NSMinX(tContainerBounds),NSMinY(tContainerBounds),_availableChoicesPopUpButtonSize.width,_availableChoicesPopUpButtonSize.height) pullsDown:NO];
 		
-		tDependencyPopupButton.bezelStyle=NSRoundRectBezelStyle;
-		tDependencyPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
-		tDependencyPopupButton.alignment=NSLeftTextAlignment;
-		[[tDependencyPopupButton cell] setControlSize:NSSmallControlSize];
+		tDependencyPopupButton.bezelStyle=WBBezelStyleRoundRect;
+		tDependencyPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
+		tDependencyPopupButton.alignment=WBTextAlignmentLeft;
+		[[tDependencyPopupButton cell] setControlSize:WBControlSizeSmall];
 		
 		if (inView==_choiceEnabledDependencyView)
 		{
@@ -629,11 +629,11 @@
 		
 		NSPopUpButton * tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds),_comparatorPopUpButtonSize.width,_comparatorPopUpButtonSize.height) pullsDown:NO];
 		
-		tPopupButton.bezelStyle=NSRoundRectBezelStyle;
+		tPopupButton.bezelStyle=WBBezelStyleRoundRect;
 		tPopupButton.menu=[self _comparatorsMenu];
-		[[tPopupButton cell] setControlSize:NSSmallControlSize];
-		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
-		tPopupButton.alignment=NSLeftTextAlignment;
+		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
+		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
+		tPopupButton.alignment=WBTextAlignmentLeft;
 		tPopupButton.action=@selector(switchComparator:);
 		tPopupButton.target=self;
 		
@@ -647,11 +647,11 @@
 		// State
 		
 		tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds),_stateObjectPopUpButtonSize.width,_stateObjectPopUpButtonSize.height) pullsDown:NO];
-		tPopupButton.bezelStyle=NSRoundRectBezelStyle;
+        tPopupButton.bezelStyle=WBBezelStyleRoundRect;;
 		tPopupButton.menu=[self _stateObjectsMenu];
-		[[tPopupButton cell] setControlSize:NSSmallControlSize];
-		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
-		tPopupButton.alignment=NSLeftTextAlignment;
+		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
+		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
+		tPopupButton.alignment=WBTextAlignmentLeft;
 		
 		if (inView==_choiceEnabledDependencyView)
 			tPopupButton.action=@selector(switchEnabledStateObject:);
@@ -673,10 +673,10 @@
 		
 		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds)-1,16.0,19.0)];
 		
-		tButton.bezelStyle=NSRoundRectBezelStyle;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_minus"];
-		[[tButton cell] setControlSize:NSSmallControlSize];
+		[[tButton cell] setControlSize:WBControlSizeSmall];
 		tButton.enabled=NO;
 		
 		// A COMPLETER ?
@@ -694,10 +694,10 @@
 		
 		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
-		tButton.bezelStyle=NSRoundRectBezelStyle;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_plus"];
-		[[tButton cell] setControlSize:NSSmallControlSize];
+		[[tButton cell] setControlSize:WBControlSizeSmall];
 		
 		tButton.action=@selector(addBranch:);
 		tButton.target=self;
@@ -815,10 +815,10 @@
 		
 		NSPopUpButton * tPopupButton=[[NSPopUpButton alloc] initWithFrame:NSMakeRect(NSMinX(tContainerBounds),NSMinY(tContainerBounds),_operatorPopUpButtonSize.width,_operatorPopUpButtonSize.height) pullsDown:NO];
 		
-		tPopupButton.bezelStyle=NSRoundRectBezelStyle;
-		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:NSSmallControlSize]];
-		[[tPopupButton cell] setControlSize:NSSmallControlSize];
-		tPopupButton.alignment=NSLeftTextAlignment;
+		tPopupButton.bezelStyle=WBBezelStyleRoundRect;
+		tPopupButton.font=[NSFont systemFontOfSize:[NSFont systemFontSizeForControlSize:WBControlSizeSmall]];
+		[[tPopupButton cell] setControlSize:WBControlSizeSmall];
+		tPopupButton.alignment=WBTextAlignmentLeft;
 		tPopupButton.menu=[self _operatorsMenu];
 		tPopupButton.action=@selector(switchOperator:);
 		tPopupButton.target=self;
@@ -833,10 +833,10 @@
 		
 		NSButton * tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+10.0,NSMinY(tBounds)-1,16.0,19.0)];
 		
-		tButton.bezelStyle=NSRoundRectBezelStyle;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_switch"];
-		[[tButton cell] setControlSize:NSSmallControlSize];
+		[[tButton cell] setControlSize:WBControlSizeSmall];
 		tButton.action=@selector(switchBranches:);
 		tButton.target=self;
 		
@@ -849,10 +849,10 @@
 		
 		tMinusButton=tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
-		tButton.bezelStyle=NSRoundRectBezelStyle;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_minus"];
-		[[tButton cell] setControlSize:NSSmallControlSize];
+		[[tButton cell] setControlSize:WBControlSizeSmall];
 		tButton.enabled=NO;
 		
 		// A COMPLETER ?
@@ -869,10 +869,10 @@
 		
 		tButton=[[NSButton alloc] initWithFrame:NSMakeRect(NSMaxX(tBounds)+5.0,NSMinY(tBounds),16.0,19.0)];
 		
-		tButton.bezelStyle=NSRoundRectBezelStyle;
+		tButton.bezelStyle=WBBezelStyleRoundRect;
 		tButton.imagePosition=NSImageOnly;
 		tButton.image=[NSImage imageNamed:@"dependency_plus"];
-		[[tButton cell] setControlSize:NSSmallControlSize];
+		[[tButton cell] setControlSize:WBControlSizeSmall];
 		
 		// A COMPLETER ?
 		
@@ -1476,7 +1476,7 @@
 		
 		NSRect tEnabledViewFrame=_choiceEnabledDependencyView.frame;
 		
-		NSSize tIdealEnabledScrollSize=[NSScrollView frameSizeForContentSize:tEnabledViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:NSSmallControlSize scrollerStyle:NSScrollerStyleLegacy];
+		NSSize tIdealEnabledScrollSize=[NSScrollView frameSizeForContentSize:tEnabledViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:WBControlSizeSmall scrollerStyle:NSScrollerStyleLegacy];
 
 		
 		if (tIdealEnabledScrollSize.width>NSWidth(_choiceEnabledDependencyScrollView.frame))
@@ -1515,12 +1515,12 @@
 			
 			CGFloat tAvailableVertical=NSMinY(_choiceEnabledDependencyTextLabel.frame)-20.0 -20.0 -NSHeight(_choiceSelectedDependencyTextLabel.bounds) -8.0 -20.0;
 			
-			NSSize tIdealEnabledScrollSize=[NSScrollView frameSizeForContentSize:tEnabledViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:NSSmallControlSize scrollerStyle:NSScrollerStyleLegacy];
+			NSSize tIdealEnabledScrollSize=[NSScrollView frameSizeForContentSize:tEnabledViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:WBControlSizeSmall scrollerStyle:NSScrollerStyleLegacy];
 			
 			if (tIdealEnabledScrollSize.width>NSWidth(_choiceEnabledDependencyScrollView.frame))
 				tIdealEnabledScrollSize.height+=16.0;
 			
-			NSSize tIdealSelectedScrollSize=[NSScrollView frameSizeForContentSize:tSelectedViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:NSSmallControlSize scrollerStyle:NSScrollerStyleLegacy];
+			NSSize tIdealSelectedScrollSize=[NSScrollView frameSizeForContentSize:tSelectedViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:WBControlSizeSmall scrollerStyle:NSScrollerStyleLegacy];
 			
 			if (tIdealSelectedScrollSize.width>NSWidth(_choiceSelectedDependencyScrollView.frame))
 				tIdealSelectedScrollSize.height+=16.0;
@@ -1649,7 +1649,7 @@
 			
 			CGFloat tAvailableVertical=NSMinY(_choiceEnabledDependencyTextLabel.frame)-20.0 -NSHeight(_choiceSelectedDependencyTextLabel.bounds)-8.0       -20.0;
 			
-			NSSize tIdealSelectedScrollSize=[NSScrollView frameSizeForContentSize:tSelectedViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:NSSmallControlSize scrollerStyle:NSScrollerStyleLegacy];
+			NSSize tIdealSelectedScrollSize=[NSScrollView frameSizeForContentSize:tSelectedViewFrame.size horizontalScrollerClass:nil verticalScrollerClass:nil borderType:NSBezelBorder controlSize:WBControlSizeSmall scrollerStyle:NSScrollerStyleLegacy];
 			
 			if (tIdealSelectedScrollSize.width>NSWidth(_choiceSelectedDependencyScrollView.frame))
 				tIdealSelectedScrollSize.height+=16.0;

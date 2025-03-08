@@ -245,8 +245,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 			}
 #endif
 #endif
-
-			
 		});
 		
 		tResolvedOperatingSystemVersion=sSystemVersion;
@@ -379,7 +377,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	NSMutableParagraphStyle * tParagraphStyle=[[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 	
 	tParagraphStyle.lineBreakMode=NSLineBreakByTruncatingTail;
-	tParagraphStyle.alignment=NSNaturalTextAlignment;
+	tParagraphStyle.alignment=WBTextAlignmentNatural;
 	
 	NSFont * tFont=nil;
 	
@@ -523,8 +521,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		
 		NSRect tBezelFrame=NSInsetRect(tWindowFrame, -1.0, -1.0);
 		
-		
-		
 		// Title Bar frame
 		
 		switch(tDisplayedAppearance)
@@ -638,7 +634,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 							_cachedParts[HIWPartTopLeftCorner],_cachedParts[HIWPartTopEdge], _cachedParts[HIWPartTopRightCorner],
 							_cachedParts[HIWPartLeftEdge], _cachedParts[HIWPartCenter], _cachedParts[HIWPartRightEdge],
 							_cachedParts[HIWPartBottomLeftCorner], _cachedParts[HIWPartBottomEdge], _cachedParts[HIWPartBottomRight],
-							NSCompositeSourceOver,
+                            WBCompositingOperationSourceOver,
 							1.0,
 							NO);
 	}
@@ -685,8 +681,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 	{
 		tTooBig=YES;
 		tTitleFrame.size.width=tAvailableWidth;
-		
-		
 	}
 	else
 	{
@@ -719,8 +713,6 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 			tTitleFrame.origin.x=round(tMiddleTitleBar-tTitleFrame.size.width*0.5);
 	}
 	
-	
-	
 	/*NSFrameRect(tTitleFrame);*/
 	
 	[tTitle drawInRect:tTitleFrame withAttributes:_cachedAttributes];
@@ -733,7 +725,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		tIconFrame.origin.y=round(NSMaxY(tWindowFrame)-(HIWWindowViewTitleBarHeight+HIWWindowViewProxyIconHeight)*0.5)-1.0;
 		tIconFrame.size=NSMakeSize(HIWWindowViewProxyIconWidth, HIWWindowViewProxyIconHeight);
 		
-		[tIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 1.0 : 0.5];
+		[tIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.window.isMainWindow==YES) ? 1.0 : 0.5];
 	}
 	
 	// Draw Locks Button
@@ -756,7 +748,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 			[_cachedLockButtonIcon _drawMappingAlignmentRectToRect:tIconFrame
 														 withState:1
 												   backgroundStyle:7
-														 operation:NSCompositeSourceOver
+														 operation:WBCompositingOperationSourceOver
 														  fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3
 															  flip:NO hints:nil];
 			
@@ -764,7 +756,7 @@ typedef NS_ENUM(NSUInteger, HIWPartID)
 		}
 		else
 		{
-			[_cachedLockButtonIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3];
+			[_cachedLockButtonIcon drawInRect:tIconFrame fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:(self.window.isMainWindow==YES) ? 0.5 : 0.3];
 		}
 	}
 }

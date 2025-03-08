@@ -153,42 +153,48 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 
 - (instancetype)init
 {
-	return [self initTextCell:@""];
+	self=[super initTextCell:@""];
+    
+    [self commonInit];
+    
+    return self;
 }
 
 - (instancetype)initTextCell:(NSString *)inString
 {
     self=[super initTextCell:inString];
     
-    if (self!=nil)
-    {
-		_trackingArea=WBVersionPickerCellTrackingAreaNone;
-		
-		_versionPickerStyle=WBTextFieldAndStepperVersionPickerStyle;
-		
-		_backgroundColor=[[NSColor controlBackgroundColor] copy];
-		_textColor=[[NSColor controlTextColor] copy];
-		
-		[super setFont:[NSFont systemFontOfSize:[self controlSize]]];
-		
-		_numberFormatter=[NSNumberFormatter new];
-		_numberFormatter.formatterBehavior=NSNumberFormatterBehavior10_4;
-		_numberFormatter.locale=[NSLocale currentLocale];
-		
-		_versionsHistory=[WBVersionsHistory versionsHistory];
-		
-		_minVersion=nil;
-		_maxVersion=nil;
-		
-		_didEditElement=NO;
-		_didEnableEditionTimer=NO;
-		
-		[self setVersionValue:[WBVersion new]];
-		
-		[self updateElements];
-    }
+    [self commonInit];
     
     return self;
+}
+
+- (void)commonInit
+{
+    _trackingArea=WBVersionPickerCellTrackingAreaNone;
+    
+    _versionPickerStyle=WBTextFieldAndStepperVersionPickerStyle;
+    
+    _backgroundColor=[[NSColor controlBackgroundColor] copy];
+    _textColor=[[NSColor controlTextColor] copy];
+    
+    [super setFont:[NSFont systemFontOfSize:[self controlSize]]];
+    
+    _numberFormatter=[NSNumberFormatter new];
+    _numberFormatter.formatterBehavior=NSNumberFormatterBehavior10_4;
+    _numberFormatter.locale=[NSLocale currentLocale];
+    
+    _versionsHistory=[WBVersionsHistory versionsHistory];
+    
+    _minVersion=nil;
+    _maxVersion=nil;
+    
+    _didEditElement=NO;
+    _didEnableEditionTimer=NO;
+    
+    [self setVersionValue:[WBVersion new]];
+    
+    [self updateElements];
 }
 
 #pragma mark - Layout computations
@@ -262,12 +268,12 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 		
 		switch([self controlSize])
 		{
-			case NSRegularControlSize:
+			case WBControlSizeRegular:
 				
 				tStepperCellHeight-=4.0;
 				break;
 				
-			case NSSmallControlSize:
+			case WBControlSizeSmall:
 				
 				tStepperCellHeight-=2.0;
 				break;
@@ -911,7 +917,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
         {
             [[NSColor containerBorderColor] set];
             
-            NSFrameRectWithWidthUsingOperation(tTextAreaFrame,1.0, NSCompositeSourceOver);
+            NSFrameRectWithWidthUsingOperation(tTextAreaFrame,1.0, WBCompositingOperationSourceOver);
         }
         else
         {
@@ -926,7 +932,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 		{
 			[[NSColor blackColor] setFill];
 			
-			NSFrameRectWithWidthUsingOperation(tTextAreaFrame,-1.0, NSCompositeSourceOver);
+			NSFrameRectWithWidthUsingOperation(tTextAreaFrame,-1.0, WBCompositingOperationSourceOver);
 		}
 	}
 	
@@ -948,7 +954,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 			
 			tElementFrame=NSOffsetRect(tElementFrame,tOffset,(-1.0+(1.0+WBVersionPickerCell_Padding_Bottom)));
 			
-			[[NSColor alternateSelectedControlColor] setFill];
+			[NSColor.selectedContentBackgroundColor setFill];
 
 #define WBVersionPickerCellSelectedElementRadius	3.0
 			
@@ -957,7 +963,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	}
 	
     NSMutableParagraphStyle * tMutableParagraphStyle=[NSMutableParagraphStyle new];
-	tMutableParagraphStyle.alignment=NSCenterTextAlignment;
+	tMutableParagraphStyle.alignment=WBTextAlignmentCenter;
     
 	NSColor * tTextColor;
 	
@@ -1042,7 +1048,7 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 	NSPoint tPoint=[inView convertPoint:inEvent.locationInWindow fromView:nil];
 	NSEventType tType=inEvent.type;
 	
-	if (tType==NSLeftMouseDown)
+	if (tType==WBEventTypeLeftMouseDown)
 		_trackingArea=WBVersionPickerCellTrackingAreaNone;
 	
 	NSRect tTextAreaFrame;
@@ -1059,10 +1065,10 @@ typedef NS_ENUM(NSUInteger, WBVersionPickerCellTrackingAreaType)
 		tTrackingArea=WBVersionPickerCellTrackingAreaText;
 	
 
-	if (tType==NSLeftMouseDragged && _trackingArea!=tTrackingArea)
+	if (tType==WBEventTypeLeftMouseDragged && _trackingArea!=tTrackingArea)
 		return NO;
 	
-	if (tType==NSLeftMouseDown)
+	if (tType==WBEventTypeLeftMouseDown)
 		_trackingArea=tTrackingArea;
 	
 	if (tTrackingArea==WBVersionPickerCellTrackingAreaStepper)

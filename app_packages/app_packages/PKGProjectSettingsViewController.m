@@ -25,8 +25,6 @@
 
 #import "PKGCertificatesUtilities.h"
 
-#import "NSAlert+block.h"
-
 #import "PKGProjectNameFormatter.h"
 #import "PKGElasticFolderNameFormatter.h"
 
@@ -170,7 +168,7 @@
 	
 	_exclusionsViewController.fileFiltersDataSource=_fileFiltersDataSource;
 	
-	_filterPayloadOnlyCheckbox.state=(self.projectSettings.filterPayloadOnly==YES) ? NSOnState : NSOffState;
+	_filterPayloadOnlyCheckbox.state=(self.projectSettings.filterPayloadOnly==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 }
 
 - (void)WB_viewWillAppear
@@ -302,7 +300,7 @@
 	[tChooseIdentityPanel beginSheetModalForWindow:self.view.window
 								 completionHandler:^(NSInteger bReturnCode) {
 									 
-									 if (bReturnCode==NSCancelButton)
+									 if (bReturnCode==WBModalResponseCancel)
 										 return;
 									 
 									 self.projectSettings.certificateName=tChooseIdentityPanel.identity;
@@ -326,7 +324,7 @@
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove_Certificate",@"No Comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No Comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bReturnCode){
 		
 		if (bReturnCode==NSAlertSecondButtonReturn)
 			return;
@@ -375,7 +373,7 @@
 	dispatch_async(dispatch_get_main_queue(), ^{	// Dispatched to avoid the lack of animation for the sheet because of the dumb popupbutton animation
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult==NSFileHandlingPanelOKButton)
+			if (bResult==WBFileHandlingPanelOKButton)
 			{
 				NSString * tNewBuildPath=tOpenPanel.URL.path;
 				
@@ -424,7 +422,7 @@
 	dispatch_async(dispatch_get_main_queue(), ^{	// Dispatched to avoid the lack of animation for the sheet because of the dumb popupbutton animation
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult==NSFileHandlingPanelOKButton)
+			if (bResult==WBFileHandlingPanelOKButton)
 			{
 				NSString * tReferenceFolderPath=tOpenPanel.URL.path;
 				
@@ -491,7 +489,7 @@
 
 - (IBAction)setFilterPayloadOnly:(NSButton *)sender
 {
-	BOOL tNewValue=(sender.state==NSOnState);
+	BOOL tNewValue=(sender.state==WBControlStateValueOn);
 	
 	if (self.projectSettings.filterPayloadOnly!=tNewValue)
 	{
@@ -538,7 +536,7 @@
 	
 	if (tAction==@selector(setReferenceFolder:))
 	{
-		if (self.projectSettings.referenceFolderPath!=nil && ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)==NSAlternateKeyMask)
+		if (self.projectSettings.referenceFolderPath!=nil && ([[NSApp currentEvent] modifierFlags] & WBEventModifierFlagOption)==WBEventModifierFlagOption)
 		{
 			inMenuItem.title=NSLocalizedString(@"Revert to Default",@"");
 			inMenuItem.action=@selector(resetReferenceFolder:);
@@ -549,7 +547,7 @@
 	
 	if (tAction==@selector(resetReferenceFolder:))
 	{
-		if (self.projectSettings.referenceFolderPath==nil || ([[NSApp currentEvent] modifierFlags] & NSAlternateKeyMask)!=NSAlternateKeyMask)
+		if (self.projectSettings.referenceFolderPath==nil || ([[NSApp currentEvent] modifierFlags] & WBEventModifierFlagOption)!=WBEventModifierFlagOption)
 		{
 			inMenuItem.title=NSLocalizedString(@"Other...",@"");
 			inMenuItem.action=@selector(setReferenceFolder:);

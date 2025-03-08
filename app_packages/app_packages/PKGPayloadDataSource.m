@@ -636,7 +636,7 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		void (^renameAlertBailOut)(NSString *,NSString *) = ^(NSString *bMessageText,NSString *bInformativeText)
 		{
 			NSAlert * tAlert=[NSAlert new];
-			tAlert.alertStyle=NSCriticalAlertStyle;
+			tAlert.alertStyle=WBAlertStyleCritical;
 			tAlert.messageText=bMessageText;
 			tAlert.informativeText=bInformativeText;
 			
@@ -1352,9 +1352,9 @@ NSString * const PKGPayloadItemsInternalPboardType=@"fr.whitebox.packages.intern
 		tPanel.keepOwnerAndGroup=[PKGApplicationPreferences sharedPreferences].keepOwnership;
 		tPanel.referenceStyle=[PKGApplicationPreferences sharedPreferences].defaultFilePathReferenceStyle;
 		
-		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSInteger bReturnCode){
+		[tPanel beginSheetModalForWindow:inOutlineView.window completionHandler:^(NSModalResponse response){
 			
-			if (bReturnCode==PKGPanelCancelButton)
+			if (response==PKGPanelCancelButton)
 				return;
 			
 			PKGPayloadAddOptions tOptions=0;

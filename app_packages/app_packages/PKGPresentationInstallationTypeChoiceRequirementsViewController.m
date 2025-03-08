@@ -17,8 +17,6 @@
 
 #import "PKGCheckboxTableCellView.h"
 
-#import "NSAlert+block.h"
-
 #import "NSTableView+Selection.h"
 
 @interface PKGPresentationInstallationTypeChoiceRequirementsViewController () <NSTableViewDelegate,NSTextFieldDelegate,PKGPresentationInstallationTypeChoiceRequirementsDataSourceDelegate>
@@ -86,7 +84,7 @@
 	if (tRow==-1)
 		return;
 	
-	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtIndex:tRow] state:(sender.state==NSOnState)];
+	[self.dataSource tableView:self.tableView setItem:[self.dataSource itemAtIndex:tRow] state:(sender.state==WBControlStateValueOn)];
 }
 
 - (IBAction)addRequirement:(id)sender
@@ -135,7 +133,7 @@
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
@@ -228,7 +226,7 @@
 		
 		PKGCheckboxTableCellView * tCheckBoxView=(PKGCheckboxTableCellView *)tTableCellView;
 		
-		tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? NSOnState : NSOffState;
+		tCheckBoxView.checkbox.state=(tRequirement.isEnabled==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		tCheckBoxView.textField.stringValue=tRequirement.name;
 		tCheckBoxView.textField.delegate=self;

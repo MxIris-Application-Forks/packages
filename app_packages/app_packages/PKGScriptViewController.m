@@ -20,8 +20,6 @@
 
 #import "PKGTellerView.h"
 
-#import "NSAlert+block.h"
-
 @interface PKGScriptOpenPanelDelegate : NSObject<NSOpenSavePanelDelegate>
 
 @property (copy) NSString * currentPath;
@@ -236,7 +234,7 @@
 	if (tAbsolutePath==nil)
 		return;
 	
-	[[NSWorkspace sharedWorkspace] openFile:tAbsolutePath];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:tAbsolutePath]];
 }
 
 - (IBAction)switchPathType:(NSPopUpButton *)sender
@@ -305,7 +303,7 @@
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		if (tShowOwnershipAndReferenceStyleCustomizationDialog==YES)
@@ -344,7 +342,7 @@
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;

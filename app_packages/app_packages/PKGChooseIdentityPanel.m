@@ -15,8 +15,6 @@
 
 #import "PKGCertificatesUtilities.h"
 
-#import "NSAlert+Block.h"
-
 #import <SecurityInterface/SFChooseIdentityPanel.h>
 
 @interface PKGChooseIdentityPanel ()
@@ -36,9 +34,9 @@
 	
 	if (handler!=nil)
 	{
-		if (inReturnCode!=NSOKButton)
+		if (inReturnCode!=WBModalResponseOK)
 		{
-			handler(NSCancelButton);
+			handler(WBModalResponseCancel);
 			return;
 		}
 		
@@ -75,7 +73,7 @@
 			
 			NSAlert * tAlert=[NSAlert new];
 			
-			tAlert.alertStyle=NSWarningAlertStyle;
+			tAlert.alertStyle=WBAlertStyleWarning;
 			
 			tAlert.messageText=NSLocalizedString(@"The Identity of the certificate could not be retrieved.",@"No comment");
 			tAlert.informativeText=NSLocalizedString(@"Packages will keep using the previous certificate set.",@"No comment");
@@ -89,7 +87,7 @@
 		
 		self.identity=(__bridge_transfer NSString *)tCertificateNameRef;
 		
-		handler(NSOKButton);
+		handler(WBModalResponseOK);
 		
 		// Release Memory
 		
@@ -150,9 +148,9 @@
 			}
 		}
 		
-		[tAlert WB_beginSheetModalForWindow:sheetWindow completionHandler:^(NSModalResponse bReturnCode){
+		[tAlert beginSheetModalForWindow:sheetWindow completionHandler:^(NSModalResponse bResponse){
 			
-			if (bReturnCode==NSAlertSecondButtonReturn)
+			if (bResponse==NSAlertSecondButtonReturn)
 				[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:NSLocalizedString(@"url.apple.developer.website.certificates",@"")]];
 		}];
 		
@@ -242,7 +240,7 @@
 	
 	NSInteger tResult=[_chooseIdentityPanel runModalForIdentities:tIdentitiesArray message:self.messageText];
 	
-	if (tResult!=NSOKButton)
+	if (tResult!=WBModalResponseOK)
 		return tResult;
 	
 	SecIdentityRef tIdentityRef=[_chooseIdentityPanel identity];
@@ -274,7 +272,7 @@
 		
 		NSAlert * tAlert=[NSAlert new];
 		
-		tAlert.alertStyle=NSWarningAlertStyle;
+		tAlert.alertStyle=WBAlertStyleWarning;
 		
 		tAlert.messageText=NSLocalizedString(@"The Identity of the certificate could not be retrieved.",@"No comment");
 		tAlert.informativeText=NSLocalizedString(@"Packages will keep using the previous certificate set.",@"No comment");
@@ -290,7 +288,7 @@
 	
 	CFRelease(tCertificateRef);
 	
-	return NSOKButton;
+	return WBModalResponseOK;
 }
 
 @end

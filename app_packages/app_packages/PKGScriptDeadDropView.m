@@ -108,7 +108,7 @@
 			.size={tImageDimension,tImageDimension}
 		};
 		
-		[tImage drawInRect:tDestinationRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+		[tImage drawInRect:tDestinationRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 	}
 	else
 	{
@@ -121,7 +121,7 @@
 	{
 		NSBezierPath * tPath=[NSBezierPath bezierPathWithRoundedRect:NSInsetRect(tBounds,2.0,2.0) xRadius:8.0 yRadius:8.0];
 		
-		[[NSColor alternateSelectedControlColor] setStroke];
+		[NSColor.selectedContentBackgroundColor setStroke];
 			
 		[tPath setLineWidth:2.0];
 			

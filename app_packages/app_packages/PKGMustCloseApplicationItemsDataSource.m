@@ -13,8 +13,6 @@
 
 #import "PKGMustCloseApplicationItemsDataSource.h"
 
-#import "NSAlert+block.h"
-
 NSString * const PKGMustCloseApplicationItemTransferPboardType=@"fr.whitebox.packages.transfer.package-component.must-close-application-items";
 
 @interface PKGMustCloseApplicationItemsDataSource ()
@@ -130,11 +128,11 @@ NSString * const PKGMustCloseApplicationItemTransferPboardType=@"fr.whitebox.pac
 	}].count>0)
 	{
 		NSAlert * tAlert=[NSAlert new];
-		tAlert.alertStyle=NSCriticalAlertStyle;
+		tAlert.alertStyle=WBAlertStyleCritical;
 		tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The application ID \"%@\" is already listed.",@""),inApplicationID];
 		tAlert.informativeText=NSLocalizedString(@"Please type a different application ID.",@"");
 		
-		[tAlert WB_beginSheetModalForWindow:inTableView.window completionHandler:^(NSModalResponse bResponse){
+		[tAlert beginSheetModalForWindow:inTableView.window completionHandler:^(NSModalResponse bResponse){
 			
 			[inTableView reloadDataForRowIndexes:tReloadRowIndexes columnIndexes:tReloadColumnIndexes];
 			

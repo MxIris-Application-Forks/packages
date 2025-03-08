@@ -50,8 +50,6 @@
 
 #import "PKGLanguageConverter.h"
 
-#import "NSAlert+block.h"
-
 #import "NSIndexSet+Analysis.h"
 
 #import "NSFileManager+FileTypes.h"
@@ -710,13 +708,13 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 		{
 			case WB_AppearanceAqua:
 				
-				_appearanceLightRadioButton.state=NSOnState;
+				_appearanceLightRadioButton.state=WBControlStateValueOn;
 				
 				break;
 				
 			case WB_AppearanceDarkAqua:
 				
-				_appearanceDarkRadioButton.state=NSOnState;
+				_appearanceDarkRadioButton.state=WBControlStateValueOn;
 				
 				break;
 				
@@ -838,7 +836,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		if ([PKGApplicationPreferences sharedPreferences].showOwnershipAndReferenceStyleCustomizationDialog==YES)
@@ -899,7 +897,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
@@ -948,7 +946,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 {
     NSString * tAppearanceName=[NSResponder WB_appearanceNameForAppearanceMode:sender.tag];
 	
-    sender.state=NSOnState;
+    sender.state=WBControlStateValueOn;
     
     self.documentRegistry[PKGDistributionPresentationSelectedAppearance]=tAppearanceName;
 	
@@ -1045,7 +1043,7 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	
 	if (tAction==@selector(switchPresentationTheme:))
 	{
-		inMenuItem.state=(inMenuItem.tag==_currentTheme) ? NSOnState : NSOffState;
+		inMenuItem.state=(inMenuItem.tag==_currentTheme) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		return YES;
 	}
@@ -1711,13 +1709,13 @@ NSString * const PKGDistributionPresentationShowAppearanceSwitchKey=@"ui.project
 	{
 		case WB_AppearanceAqua:
 			
-			_appearanceLightRadioButton.state=NSOnState;
+			_appearanceLightRadioButton.state=WBControlStateValueOn;
 			
 			break;
 			
 		case WB_AppearanceDarkAqua:
 			
-			_appearanceDarkRadioButton.state=NSOnState;
+			_appearanceDarkRadioButton.state=WBControlStateValueOn;
 			
 			break;
 			

@@ -71,13 +71,12 @@
 		{
 			NSBeep();
 			
-			NSAlert * tAlert=[NSAlert alertWithMessageText:NSLocalizedStringFromTable(@"The parent directory of the project directory you specified does not exist.",@"ProjectTemplateAssistant",@"No comment")
-											 defaultButton:nil
-										   alternateButton:nil
-											   otherButton:nil
-								 informativeTextWithFormat:NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment")];
+            NSAlert * tAlert=[NSAlert new];
+            
+            tAlert.messageText=NSLocalizedStringFromTable(@"The parent directory of the project directory you specified does not exist.",@"ProjectTemplateAssistant",@"No comment");
+            tAlert.informativeText=NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment");
 			
-			[tAlert beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:NULL];
+			[tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
 			
 			return NO;
 		}
@@ -86,13 +85,12 @@
 		{
 			NSBeep();
 			
-			NSAlert * tAlert=[NSAlert alertWithMessageText:NSLocalizedString(@"The parent directory of the project directory you specified is not a directory.",@"No comment")
-											 defaultButton:nil
-										   alternateButton:nil
-											   otherButton:nil
-								 informativeTextWithFormat:NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment")];
+            NSAlert * tAlert=[NSAlert new];
+            
+            tAlert.messageText=NSLocalizedString(@"The parent directory of the project directory you specified is not a directory.",@"No comment");
+            tAlert.informativeText=NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment");
 			
-			[tAlert beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:NULL];
+			[tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
 			
 			return NO;
 		}
@@ -103,13 +101,12 @@
 		{
 			NSBeep();
 			
-			NSAlert * tAlert=[NSAlert alertWithMessageText:NSLocalizedStringFromTable(@"A file with the same name as the project directory you specified already exists.",@"ProjectTemplateAssistant",@"No comment")
-											 defaultButton:nil
-										   alternateButton:nil
-											   otherButton:nil
-								 informativeTextWithFormat:NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment")];
+            NSAlert * tAlert=[NSAlert new];
+            
+            tAlert.messageText=NSLocalizedStringFromTable(@"A file with the same name as the project directory you specified already exists.",@"ProjectTemplateAssistant",@"No comment");
+            tAlert.informativeText=NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment");
 			
-			[tAlert beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:NULL];
+			[tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
 			
 			return NO;
 		}
@@ -130,13 +127,12 @@
 	{
 		NSBeep();
 		
-		NSAlert * tAlert=[NSAlert alertWithMessageText:NSLocalizedStringFromTable(@"A file with this name already exists at this location.",@"ProjectTemplateAssistant",@"No comment")
-										 defaultButton:nil
-									   alternateButton:nil
-										   otherButton:nil
-							 informativeTextWithFormat:NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment")];
+		NSAlert * tAlert=[NSAlert new];
 		
-		[tAlert beginSheetModalForWindow:self.view.window modalDelegate:nil didEndSelector:nil contextInfo:NULL];
+		tAlert.messageText=NSLocalizedStringFromTable(@"A file with this name already exists at this location.",@"ProjectTemplateAssistant",@"No comment");
+		tAlert.informativeText=NSLocalizedStringFromTable(@"Please select another location for the project.",@"ProjectTemplateAssistant",@"No comment");
+		
+		[tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
 		
 		return NO;
 	}
@@ -243,7 +239,7 @@
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		NSString * tDirectoryPath=[tOpenPanel.URL.path stringByAbbreviatingWithTildeInPath];

@@ -203,13 +203,13 @@
 	if (tTemporaryUnselectableIndex!=-1)
 		[_fileOwnerPopUpButton removeItemAtIndex:tTemporaryUnselectableIndex];
 	
-	NSString * tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:_cachedOwner];
+	NSString * tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:(uid_t)_cachedOwner];
 	
 	if (tPosixName==nil || [_fileOwnerPopUpButton indexOfItemWithTag:_cachedOwner]==-1)
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:(tPosixName!=nil) ? tPosixName : [NSString stringWithFormat:@"%u",(uint32_t) _cachedOwner]
-																					action:nil
-																			 keyEquivalent:@""];
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:(tPosixName!=nil) ? tPosixName : [NSString stringWithFormat:@"%u",(uint32_t) _cachedOwner]
+                                                          action:nil
+                                                   keyEquivalent:@""];
 		
 		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
 		tMenuItem.enabled=NO;
@@ -232,14 +232,14 @@
 	if (tTemporaryUnselectableIndex!=-1)
 		[_fileGroupPopUpButton removeItemAtIndex:tTemporaryUnselectableIndex];
 	
-	tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:_cachedGroup];
+	tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:(gid_t)_cachedGroup];
 	
 	
 	if (tPosixName==nil || [_fileGroupPopUpButton indexOfItemWithTag:_cachedGroup]==-1)
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:(tPosixName!=nil) ? tPosixName : [NSString stringWithFormat:@"%u",(uint32_t) _cachedGroup]
-																					action:nil
-																			 keyEquivalent:@""];
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:(tPosixName!=nil) ? tPosixName : [NSString stringWithFormat:@"%u",(uint32_t) _cachedGroup]
+                                                          action:nil
+                                                   keyEquivalent:@""];
 		
 		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
 		tMenuItem.enabled=NO;
@@ -344,9 +344,9 @@
 	
 	if (tMixedUids==YES)
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
-																					action:nil
-																			 keyEquivalent:@""];
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+                                                          action:nil
+                                                   keyEquivalent:@""];
 		
 		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
 		tMenuItem.enabled=NO;
@@ -357,13 +357,13 @@
 	}
 	else
 	{
-		NSString * tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:tCommonUid];
+		NSString * tPosixName=[_usersAndGroupsMonitor posixNameForUserAccountID:(uid_t)tCommonUid];
 	
 		if (tPosixName==nil)
 		{
-			NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%d",(int32_t) tCommonUid]
-																						action:nil
-																				 keyEquivalent:@""];
+			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%d",(int32_t) tCommonUid]
+                                                              action:nil
+                                                       keyEquivalent:@""];
 			
 			tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
 			tMenuItem.enabled=NO;
@@ -389,9 +389,9 @@
 	
 	if (tMixedGids==YES)
 	{
-		NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
-																					action:nil
-																			 keyEquivalent:@""];
+		NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+                                                          action:nil
+                                                   keyEquivalent:@""];
 		
 		tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
 		tMenuItem.enabled=NO;
@@ -402,13 +402,13 @@
 	}
 	else
 	{
-		NSString * tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:tCommonGid];
+		NSString * tPosixName=[_usersAndGroupsMonitor posixNameForGroupAccountID:(gid_t)tCommonGid];
 		
 		if (tPosixName==nil)
 		{
-			NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:[NSString stringWithFormat:@"%d",(int32_t) tCommonGid]
-																						action:nil
-																				 keyEquivalent:@""];
+			NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"%d",(int32_t) tCommonGid]
+                                                              action:nil
+                                                       keyEquivalent:@""];
 			
 			tMenuItem.tag=PKGAccountMenuTemporaryUnselectableItemTag;
 			tMenuItem.enabled=NO;
@@ -457,7 +457,7 @@
 		{
 			PKGFileItem * tFileItem=[tTreeNode representedObject];
 			
-			tFileItem.uid=tTag;
+			tFileItem.uid=(uid_t)tTag;
 		}
 		
 		[self.delegate viewController:self didUpdateSelectedItems:self.selectedItems];
@@ -476,7 +476,7 @@
 		{
 			PKGFileItem * tFileItem=[tTreeNode representedObject];
 			
-			tFileItem.gid=tTag;
+			tFileItem.gid=(gid_t)tTag;
 		}
 		
 		[self.delegate viewController:self didUpdateSelectedItems:self.selectedItems];
@@ -516,15 +516,15 @@
 	NSInteger tState=sender.state;
 	NSInteger tFlag=sender.tag;
 	
-	if (tState!=NSOffState)
+	if (tState!=WBControlStateValueOff)
 	{
 		_POSIXPermissions|=tFlag;
-		sender.state=NSOnState;
+		sender.state=WBControlStateValueOn;
 	}
 	else
 	{
 		_POSIXPermissions&=~tFlag;
-		sender.state=NSOffState;
+		sender.state=WBControlStateValueOff;
 	}
 
 	_mixedPOSIXPermissions&=~tFlag;
@@ -639,9 +639,9 @@
 		tCheckBox.tag=tFlag;
 		
 		if ((_mixedPOSIXPermissions & tFlag)==tFlag)
-			tCheckBox.state=NSMixedState;
+			tCheckBox.state=WBControlStateValueMixed;
 		else
-			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? NSOnState : NSOffState;
+			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		return tCellView;
 	}
@@ -697,9 +697,9 @@
 		tCheckBox.tag=tFlag;
 		
 		if ((_mixedPOSIXPermissions & tFlag)==tFlag)
-			tCheckBox.state=NSMixedState;
+			tCheckBox.state=WBControlStateValueMixed;
 		else
-			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? NSOnState : NSOffState;
+			tCheckBox.state=((_POSIXPermissions & tFlag)==tFlag) ? WBControlStateValueOn : WBControlStateValueOff;
 		
 		return tCellView;
 	}

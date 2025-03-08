@@ -24,8 +24,6 @@
 
 #import "NSTableView+Selection.h"
 
-#import "NSAlert+block.h"
-
 #import "NSFileManager+FileTypes.h"
 
 typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
@@ -233,7 +231,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 		case PKGLocalizationFilePathMenuActionTypeOpenWithFinder:
 		{
 			if (tAbsolutePath!=nil)
-				[[NSWorkspace sharedWorkspace] openFile:tAbsolutePath];
+				[[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:tAbsolutePath]];
 			
 			dispatch_async(dispatch_get_main_queue(), ^{
 				
@@ -278,7 +276,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 		
 		[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 			
-			if (bResult!=NSFileHandlingPanelOKButton)
+			if (bResult!=WBFileHandlingPanelOKButton)
 			{
 				dispatch_async(dispatch_get_main_queue(), ^{
 					
@@ -326,7 +324,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
@@ -348,7 +346,7 @@ typedef NS_ENUM(NSUInteger, PKGLocalizationFilePathMenuActionType) {
 	
 	if (tAction==@selector(switchLanguage:))
 	{
-		if (inMenuItem.state==NSOnState)
+		if (inMenuItem.state==WBControlStateValueOn)
 			return YES;
 		
 		return ([[_dataSource availableLanguageTagsSet] containsIndex:inMenuItem.tag]==YES);

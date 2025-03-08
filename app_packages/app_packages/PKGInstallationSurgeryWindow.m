@@ -38,7 +38,7 @@
 {
 	[[NSColor colorWithDeviceWhite:0.0 alpha:0.5] set];
 	
-	NSRectFillUsingOperation(inRect,NSCompositeSourceOver);
+	NSRectFillUsingOperation(inRect,WBCompositingOperationSourceOver);
 	
 	[[NSColor clearColor] set];
 	
@@ -52,7 +52,7 @@
 		.size=NSMakeSize(tWidth, tHeight)
 	};
 	
-	NSRectFillUsingOperation(tRect,NSCompositeClear);
+	NSRectFillUsingOperation(tRect,WBCompositingOperationSourceOver);
 }
 
 @end
@@ -85,7 +85,7 @@
 
 	NSRect tWindowFrame=[PKGInstallationSurgeryWindow windowFrameForView:inView];
 		
-	self=[super initWithContentRect:tWindowFrame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+	self=[super initWithContentRect:tWindowFrame styleMask:WBWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:YES];
 	
 	if (self!=nil)
 	{

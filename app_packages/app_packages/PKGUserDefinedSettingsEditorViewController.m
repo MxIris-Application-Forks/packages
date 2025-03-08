@@ -13,7 +13,6 @@
 
 #import "NSArray+UniqueName.h"
 
-#import "NSAlert+Block.h"
 #import "NSTableView+Selection.h"
 
 @interface PKGUserDefinedSettingsEditorViewController () <NSTableViewDelegate,NSTableViewDataSource>
@@ -121,11 +120,11 @@
     }].count>0)
     {
         NSAlert * tAlert=[NSAlert new];
-        tAlert.alertStyle=NSCriticalAlertStyle;
+        tAlert.alertStyle=WBAlertStyleCritical;
         tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" is already taken.",@""),tNewKey];
         tAlert.informativeText=NSLocalizedString(@"Please choose a different name.",@"");
         
-        [tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:nil];
+        [tAlert beginSheetModalForWindow:self.view.window completionHandler:nil];
         
         return;
     }
@@ -151,7 +150,7 @@
     // Hack to select the value cell on tab and back-tab events when the order of rowa has changed
     
     NSEvent * tCurrentEvent=[NSApp currentEvent];
-    if (tCurrentEvent.type!=NSKeyDown)
+    if (tCurrentEvent.type!=WBEventTypeKeyDown)
         return;
     
     NSString * tCharacters=tCurrentEvent.characters;

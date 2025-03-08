@@ -109,12 +109,12 @@
                  tRect.origin.x=0;
                  tRect.origin.y=NSMaxY(dstRect)-tSideLength;
                  
-                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
                  
                  tRect.origin.x=tSideLength*0.25;
                  tRect.origin.y=NSMinY(dstRect);
                  
-                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                 [tFolderIcon drawInRect:tRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
                  
                  return YES;
              }];
@@ -692,9 +692,9 @@
 			
 			if (tMixedIndex==-1)
 			{
-				NSMenuItem * tMenuItem=[[NSMenuItem allocWithZone:[NSMenu menuZone]] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
-																						action:nil
-																				 keyEquivalent:@""];
+				NSMenuItem * tMenuItem=[[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Mixed",@"No comment")
+                                                                  action:nil
+                                                           keyEquivalent:@""];
 			
 				tMenuItem.image=[NSImage imageNamed:@"MixedMenuItemUbuntu"];
 				tMenuItem.target=nil;
@@ -819,7 +819,7 @@
 	
 	[tOpenPanel beginSheetModalForWindow:self.view.window completionHandler:^(NSInteger bResult){
 		
-		if (bResult!=NSFileHandlingPanelOKButton)
+		if (bResult!=WBFileHandlingPanelOKButton)
 			return;
 		
 		PKGFileItem * tSelectedItem=[tSelectedNode representedObject];

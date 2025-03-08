@@ -66,8 +66,8 @@
 		[tMutableString appendFormat:@"\n%@",tBuildEventItem.subTitle];
 	
 	
-	[tPasteboard declareTypes:@[NSStringPboardType] owner:nil];
-	[tPasteboard setString:[NSString stringWithString:tMutableString] forType:NSStringPboardType];
+	[tPasteboard declareTypes:@[WBPasteboardTypeString] owner:nil];
+	[tPasteboard setString:[NSString stringWithString:tMutableString] forType:WBPasteboardTypeString];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)inMenuItem
@@ -221,7 +221,7 @@
 			
 			tTableCellView.imageView.image=[NSImage imageWithSize:NSMakeSize(32.0,32.0) flipped:NO drawingHandler:^BOOL(NSRect bRect) {
 				
-				[tStepIcon drawInRect:bRect fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				[tStepIcon drawInRect:bRect fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 				
 				if (tStepStatusIcon==nil)
 					return YES;
@@ -235,7 +235,7 @@
 				
 				[[NSGraphicsContext currentContext] setImageInterpolation:NSImageInterpolationHigh];
 				
-				[tStepStatusIcon drawInRect:NSMakeRect(NSMaxX(bRect)-NSWidth(tBadgeRect),NSMinY(bRect),NSWidth(tBadgeRect),NSHeight(tBadgeRect)) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				[tStepStatusIcon drawInRect:NSMakeRect(NSMaxX(bRect)-NSWidth(tBadgeRect),NSMinY(bRect),NSWidth(tBadgeRect),NSHeight(tBadgeRect)) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 				
 				[NSGraphicsContext restoreGraphicsState];
 				

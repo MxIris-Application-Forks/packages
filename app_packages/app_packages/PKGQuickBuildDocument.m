@@ -31,8 +31,6 @@
 
 #import "PKGChooseIdentityPanel.h"
 
-#import "NSAlert+block.h"
-
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -204,7 +202,7 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 						tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing the package.", @"");
 						tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");
 						
-						if ([tChooseIdentityPanel runModal]!=NSOKButton)
+						if ([tChooseIdentityPanel runModal]!=WBModalResponseOK)
 						{
 							[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
 							
@@ -244,7 +242,7 @@ NSString * const PKGQuickBuildErrorDomain=@"PKGQuickBuildErrorDomain";
 					tChooseIdentityPanel.messageText=NSLocalizedString(@"Choose the certificate to be used for signing the package.", @"");
 					tChooseIdentityPanel.informativeText=NSLocalizedString(@"Certificate Chooser Informative Text",@"");
 					
-					if ([tChooseIdentityPanel runModal]!=NSOKButton)
+					if ([tChooseIdentityPanel runModal]!=WBModalResponseOK)
 					{
 						[[PKGQuickBuildFeedbackWindowController sharedController] removeViewForUUID:_UUID];
 						

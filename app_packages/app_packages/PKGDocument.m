@@ -29,8 +29,6 @@
 
 #import "PKGBuildOrderErrorAuditor.h"
 
-#import "NSAlert+block.h"
-
 #import "NSString+Packages.h"
 
 #import "PKGProject+UserDefinedSettings.h"
@@ -663,7 +661,7 @@
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Clean",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.windowForSheet completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.windowForSheet completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
@@ -1028,7 +1026,7 @@
 				return;
 			}
 			
-			if ([[NSWorkspace sharedWorkspace] openFile:_productPath]==YES)
+			if ([[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:_productPath]]==YES)
 				return;
 			
 			// A COMPLETER

@@ -94,7 +94,7 @@
 {
 	[super WB_viewDidLoad];
     
-	_sourceReferenceStylePopUpButton.menu=[PKGFilePathTypeMenu menuForAction:nil target:self controlSize:NSRegularControlSize];
+	_sourceReferenceStylePopUpButton.menu=[PKGFilePathTypeMenu menuForAction:nil target:self controlSize:WBControlSizeRegular];
 	
 	_sourceSectionView.backgroundColor=[NSColor colorWithDeviceRed:0.7529 green:0.7843 blue:0.8392 alpha:1.0];
 	
@@ -103,7 +103,7 @@
 	if ([self WB_doesReallyConformToProtocol:@protocol(PKGFileDeadDropViewDelegate)]==YES)
 		_locationSectionView.delegate=(id<PKGLocationDropViewDelegate>)self;
 	
-	[_locationSectionView registerForDraggedTypes:@[NSFilenamesPboardType,NSStringPboardType]];
+	[_locationSectionView registerForDraggedTypes:@[NSFilenamesPboardType,WBPasteboardTypeString]];
     
     PKGReplaceableStringFormatter * tFormatter=[PKGReplaceableStringFormatter new];
     tFormatter.keysReplacer=self;
@@ -450,7 +450,7 @@
 	
 	// Options Section
 	
-	_mustCloseApplicationsCheckbox.state=(self.packageComponent.mustCloseApplications==YES)? NSOnState : NSOffState;
+	_mustCloseApplicationsCheckbox.state=(self.packageComponent.mustCloseApplications==YES)? WBControlStateValueOn : WBControlStateValueOff;
 	
 	switch(self.packageComponent.type)
 	{
@@ -679,7 +679,7 @@
 
 - (IBAction)switchMustCloseApplications:(id)sender
 {
-	BOOL tMustCloseApplications=(_mustCloseApplicationsCheckbox.state==NSOnState)? YES : NO;
+	BOOL tMustCloseApplications=(_mustCloseApplicationsCheckbox.state==WBControlStateValueOn)? YES : NO;
 	
 	if (self.packageComponent.mustCloseApplications!=tMustCloseApplications)
 	{
@@ -820,9 +820,9 @@
 	
 	if (tString==nil)
 	{
-		if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+		if ([tPasteBoard availableTypeFromArray:@[WBPasteboardTypeString]]!=nil)
 		{
-			tString=[tPasteBoard stringForType:NSStringPboardType];
+			tString=[tPasteBoard stringForType:WBPasteboardTypeString];
 		}
 		else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 		{
@@ -918,9 +918,9 @@
 	
 	if (tString==nil)
 	{
-		if ([tPasteBoard availableTypeFromArray:@[NSStringPboardType]]!=nil)
+		if ([tPasteBoard availableTypeFromArray:@[WBPasteboardTypeString]]!=nil)
 		{
-			tString=[tPasteBoard stringForType:NSStringPboardType];
+			tString=[tPasteBoard stringForType:WBPasteboardTypeString];
 		}
 		else if ([tPasteBoard availableTypeFromArray:@[NSFilenamesPboardType]]!=nil)
 		{

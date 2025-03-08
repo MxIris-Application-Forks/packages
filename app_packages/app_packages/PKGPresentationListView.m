@@ -424,7 +424,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
 								  
                                     NSSize tBulletSize=[tBulletImage size];
 								  
-                                    [tBulletImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,tHeight-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                                    [tBulletImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,tHeight-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 								 }
 								 else
 								 {
@@ -844,7 +844,7 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
     
     void (^drawDropLine)(NSRect) = ^(NSRect bRect)
     {
-        [[NSColor alternateSelectedControlColor] set];
+        [NSColor.selectedContentBackgroundColor set];
         
         NSBezierPath * tBezierPath=[NSBezierPath bezierPathWithOvalInRect:NSMakeRect(PKGPresentationListViewDropLinePaddingX,NSMinY(bRect)-1.0,PKGPresentationListViewDropLineCircleRadius*2.0,PKGPresentationListViewDropLineCircleRadius*2.0)];
         
@@ -1009,17 +1009,17 @@ NSString * PKGPresentationListViewSelectionDidChangeNotification=@"PKGPresentati
                         [tBezierPath addClip];
                         
                         NSImage * tImage=[NSImage imageNamed:@"Strip32Composite"];
-                        [tImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+                        [tImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
              
                         [[NSGraphicsContext currentContext] restoreGraphicsState];
                         
-                        [tBulletProcessedImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceIn fraction:1.0];
+                        [tBulletProcessedImage drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:WBCompositingOperationSourceIn fraction:1.0];
 						
 						return YES;
                     }];
 				}
 				
-				[tBulletProcessedImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,NSMinY(tFrame)-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+				[tBulletProcessedImage drawAtPoint:NSMakePoint(ICPRESENTATIONLISTVIEW_ROW_X_OFFSET,NSMinY(tFrame)-(PKGPresentationListViewDefaultRowHeight+tBulletSize.height)*0.5) fromRect:NSZeroRect operation:WBCompositingOperationSourceOver fraction:1.0];
 			}
 			else
 			{

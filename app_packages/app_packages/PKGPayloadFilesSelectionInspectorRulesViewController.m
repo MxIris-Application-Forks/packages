@@ -19,7 +19,6 @@
 #import "PKGCheckboxTableCellView.h"
 
 #import "NSTableView+Selection.h"
-#import "NSAlert+block.h"
 
 #import "NSArray+UniqueName.h"
 
@@ -77,7 +76,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 	
 	// Allow Downgrade
 	
-	_allowDowngradeCheckBox.state=(tBundleItem.allowDowngrade==YES) ? NSOnState : NSOffState;
+	_allowDowngradeCheckBox.state=(tBundleItem.allowDowngrade==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 	
 	// Locators
 	
@@ -91,7 +90,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 	PKGPayloadTreeNode * tTreeNode=self.selectedItems.lastObject;
 	PKGPayloadBundleItem * tBundleItem=[tTreeNode representedObject];
 	
-	tBundleItem.allowDowngrade=(_allowDowngradeCheckBox.state==NSOnState);
+	tBundleItem.allowDowngrade=(_allowDowngradeCheckBox.state==WBControlStateValueOn);
 	
 	[self noteDocumentHasChanged];
 }
@@ -108,7 +107,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 		return;
 	
 	PKGLocator * tLocator=tLocators[tRow];
-	BOOL tEnabled=(sender.state==NSOnState);
+	BOOL tEnabled=(sender.state==WBControlStateValueOn);
 	
 	if (tLocator.isEnabled==tEnabled)
 		return;
@@ -144,7 +143,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 		NSBeep();
 		
 		NSAlert * tAlert=[NSAlert new];
-		tAlert.alertStyle=NSCriticalAlertStyle;
+		tAlert.alertStyle=WBAlertStyleCritical;
 		tAlert.messageText=[NSString stringWithFormat:NSLocalizedString(@"The name \"%@\" can't be used.",@""),tNewName];
 		tAlert.informativeText=NSLocalizedString(@"Please choose a different name.",@"");
 		
@@ -233,7 +232,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Remove",@"No comment")];
 	[tAlert addButtonWithTitle:NSLocalizedString(@"Cancel",@"No comment")];
 	
-	[tAlert WB_beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
+	[tAlert beginSheetModalForWindow:self.view.window completionHandler:^(NSModalResponse bResponse){
 		
 		if (bResponse!=NSAlertFirstButtonReturn)
 			return;
@@ -402,7 +401,7 @@ NSString * const PKGBundleLocatorsInternalPboardType=@"fr.whitebox.packages.inte
 		
 		PKGCheckboxTableCellView * tCellView=[self.tableView makeViewWithIdentifier:@"locator.value" owner:self];
 		
-		tCellView.checkbox.state=(tLocator.isEnabled==YES) ? NSOnState : NSOffState;
+		tCellView.checkbox.state=(tLocator.isEnabled==YES) ? WBControlStateValueOn : WBControlStateValueOff;
 		tCellView.textField.stringValue=tLocator.name;
 			
 		return tCellView;
